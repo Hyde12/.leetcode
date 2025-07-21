@@ -84,12 +84,16 @@ from collections import defaultdict
 
 class Solution:
     def isValidSudoku(self, board: list[list[str]]) -> bool:
-        squares = defaultdict(list)
-        rows = defaultdict(list)
+        squares = defaultdict(set)
+        rows = defaultdict(set)
+        cols = defaultdict(set)
 
         for row_num, row in enumerate(board):
             for index, cell in enumerate(row):
                 # Check which square we're in
+                if cell == '.':
+                    continue
+
                 if row_num <= 2:
                     square = 1
                 elif row_num <= 5:
@@ -103,30 +107,58 @@ class Solution:
                     if square != square  +2:
                         square += 2
 
-                if cell == '.':
-                    rows[row_num].append("_")
-                    continue
-
-                # Check if square, row, or column contains current number
-                current_square_contains = squares[square]
-                if cell in current_square_contains:
+                if cell in cols[index] or cell in squares[square] or cell in rows[row_num]:
                     return False
-                else:
-                    squares[square].append(cell)
-
-
-                current_row_contains = rows[row_num]
-                if cell in current_row_contains:
-                    return False
-                else:
-                    rows[row_num].append(cell)
                 
-                for row_num_2, num in rows.items():
-                    if row_num_2 == row_num:
-                        break
+                rows[row_num].add(cell)
+                cols[index].add(cell)
+                squares[square].add(cell)
 
-                    if num[index] == cell:
-                        return False 
+                ###### only 2 dicts lol
+                # squares = defaultdict(list)
+                # rows = defaultdict(list)
+
+                # for row_num, row in enumerate(board):
+                #     for index, cell in enumerate(row):
+                #         # Check which square we're in
+                #         if row_num <= 2:
+                #             square = 1
+                #         elif row_num <= 5:
+                #             square = 4
+                #         else:
+                #             square = 7
+                        
+                #         if index > 2 and index <= 5:
+                #             square += 1
+                #         elif index > 5 and index <= 8:
+                #             if square != square  +2:
+                #                 square += 2
+
+                #         if cell == '.':
+                #             rows[row_num].append("_")
+                #             continue
+
+                #         # Check if square, row, or column contains current number
+                #         current_square_contains = squares[square]
+                #         if cell in current_square_contains:
+                #             return False
+                #         else:
+                #             squares[square].append(cell)
+
+
+                #         current_row_contains = rows[row_num]
+                #         if cell in current_row_contains:
+                #             return False
+                #         else:
+                #             rows[row_num].append(cell)
+                        
+                #         for row_num_2, num in rows.items():
+                #             if row_num_2 == row_num:
+                #                 break
+
+                #             if num[index] == cell:
+                #                 return False 
+
 
         return True
 
