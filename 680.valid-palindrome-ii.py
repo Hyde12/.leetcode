@@ -60,8 +60,7 @@ class Solution:
                 l_deleted = s[l + 1:r + 1]
                 r_deleted = s[l:r]
 
-                return l_deleted == l_deleted[::-1] or r_deleted == r_deleted[::-1
-                                                                              ]
+                return l_deleted == l_deleted[::-1] or r_deleted == r_deleted[::-1]
             l += 1
             r -= 1
             
