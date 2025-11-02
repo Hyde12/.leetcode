@@ -48,33 +48,8 @@
 # @lc code=start
 class Solution:
     def trap(self, height: list[int]) -> int:
-        l_wall = 0
-        r_wall = 1
-        spaces = []
-
-        max_water = 0
-
-        while r_wall < len(height):
-            width = r_wall - l_wall - 1
-            if height[l_wall] == 0:
-                spaces = []
-                l_wall += 1
-                r_wall += 1
-            elif height[r_wall] == 0 or width == 0:
-                spaces.append(height[r_wall])
-                r_wall += 1
-            else:
-                max_height = height[l_wall] if height[l_wall] < height[r_wall] else r_wall
-
-                for space in spaces:
-                    max_water += max_height - space
-            
-            if height[r_wall] >= height[l_wall]:
-                spaces = []
-                l_wall = r_wall
-                r_wall = l_wall + 1
-
-        return max_water
+        l_max = []
+        r_max = []
         
 # @lc code=end
 
