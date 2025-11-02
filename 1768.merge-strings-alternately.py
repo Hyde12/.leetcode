@@ -65,23 +65,40 @@
 # @lc code=start
 class Solution:
     def mergeAlternately(self, word1: str, word2: str) -> str:
+        # word1_len = len(word1)
+        # word2_len = len(word2)
+
+        # if word1_len < word2_len:
+        #      loop_len = word1_len
+        #      end_str = word2[loop_len:]
+        # else:
+        #     loop_len = word2_len
+        #     end_str = word1[loop_len:]
+        
+        # i = 0
+        # new_str = ""
+        # while i < loop_len:
+        #     new_str += word1[i] + word2[i]
+        #     i += 1
+
+        # return new_str + end_str
+
+        ### Two Pointer Approach
         word1_len = len(word1)
         word2_len = len(word2)
-
-        if word1_len < word2_len:
-             loop_len = word1_len
-             end_str = word2[loop_len:]
-        else:
-            loop_len = word2_len
-            end_str = word1[loop_len:]
-        
-        i = 0
+        count_1, count_2 = 0, 0
         new_str = ""
-        while i < loop_len:
-            new_str += word1[i] + word2[i]
-            i += 1
 
-        return new_str + end_str
+        while (count_1 < word1_len or count_2 < word2_len):
+            if count_1 < word1_len:
+                new_str += word1[count_1]
+                count_1 += 1
+            
+            if count_2 < word2_len:
+                new_str += word2[count_2]
+                count_2 += 1
+        
+        return new_str
 # @lc code=end
 
 
